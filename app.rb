@@ -4,6 +4,10 @@ require 'sinatra/reloader' if development?
 require 'redis'
 require_relative 'lib/my_redis'
 
+get '/' do
+  redirect '/strings'
+end
+
 get '/strings' do
   @strings = MyRedis.lrange('strings', 0, -1) || []
 
