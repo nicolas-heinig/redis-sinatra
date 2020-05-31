@@ -1,4 +1,6 @@
 class MyRedis
+  URL = Sinatra::Base.production? ? ENV['REDIS_URL'] : 'redis://localhost:6379'
+
   class << self
     def lrange(*args)
       instance.lrange(*args)
@@ -11,7 +13,7 @@ class MyRedis
     private
 
     def instance
-      @instance ||= Redis.new(id: 'sinatra_app')
+      @instance ||= Redis.new(id: 'sinatra_app', url: URL)
     end
   end
 end
